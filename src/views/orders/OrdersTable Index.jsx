@@ -134,13 +134,14 @@ const OrdersTable = ({ type }) => {
     setSingleOrder(data)
   }, [token, type, setSingleOrder, storeRef])
 
-  const filteredData = rows?.filter(
-    item =>
-      item.payment_status?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.order_status?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.reference_code?.toLowerCase().includes(searchQuery.toLowerCase())
-  )
-  console.log(filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage))
+  const filteredData = rows?.filter(item => {
+    // return (
+    //   item.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //   item.time.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //   item.amount.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //   item.ref.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
+  })
 
   return (
     <TableContainer component={Paper}>
@@ -161,7 +162,7 @@ const OrdersTable = ({ type }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(item => (
+              {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(item => (
                 <TableRow key={item.id}>
                   <TableCell component='th' scope='row'>
                     {item.ref}
